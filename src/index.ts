@@ -4,11 +4,11 @@ const app = new Hono()
 
 
 import { createPresent, burnPresent, recievePresent, listPresents, givePresent } from "./db/giftbag"
-import { index } from "./db/page"
+import { renderIndex } from "./db/page"
 
 app.get("/", (c) =>
 {
-  return c.html(index);
+  return c.html(renderIndex());
 });
 
 
