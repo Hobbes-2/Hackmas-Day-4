@@ -2,17 +2,21 @@ import { Hono } from "hono"
 
 const app = new Hono()
 
-app.get("/", (c) => c.text("testing!"))
 
 import { createPresent, burnPresent, recievePresent, listPresents, givePresent } from "./db/giftbag"
+import { index } from "./db/page"
 
-app.get("/api/presents", (c) => c.json(listPresents()))
+app.get("/", (c) =>
+{
+  return c.html(index);
+});
+
+
 
 app.post("/api/presents", async (c) => {
   const body = await c.req.json().catch(() => null)
   const item = (body?.item ?? "").toString().trim()
   if (!item) return c.json({ error: "item is required" }, 400)
-
     return c.json(createPresent(item), 201)
 })
 
@@ -42,3 +46,5 @@ export default {
   port,
   fetch: app.fetch,
 }
+
+

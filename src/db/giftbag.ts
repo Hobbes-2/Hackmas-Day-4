@@ -8,7 +8,8 @@ export function listPresents() {
 }
 
 //Creates a request
-export function createPresent(item: string) {
+export function createPresent(item: string)
+{
     const createdAt = Math.floor(Date.now() / 1000)
 
     const res = db.insert(presents).values({
@@ -21,7 +22,8 @@ export function createPresent(item: string) {
 }
 
 //The user recieves their present
-export function recievePresent(id: number) {
+export function recievePresent(id: number)
+{
     const res = db.update(presents)
     .set({ fulfilled: 1 })
     .where(eq(presents.id, id))
@@ -31,13 +33,15 @@ export function recievePresent(id: number) {
 }
 
 //Removes a request for a present
-export function burnPresent(id: number) {
+export function burnPresent(id: number)
+{
     const res = db.delete(presents).where(eq(presents.id, id)).run()
     return { changes: res.changes }
 }
 
 //Fufills a present requested by someone else
-export function givePresent(id: number) {
+export function givePresent(id: number)
+{
     const res = db.update(presents)
     .set({ fulfilled: 1 })
     .where(eq(presents.id, id))
